@@ -128,5 +128,14 @@ sellerStats.forEach((seller, index) => {
   seller.top_products = soldProducts.slice(0, 10);
 });
 
-  // @TODO: Подготовка итоговой коллекции с нужными полями
+// Подготовка итоговой коллекции с нужными полями
+return sellerStats.map(seller => ({
+  seller_id: seller.id,
+  name: seller.name,
+  revenue: +seller.revenue.toFixed(2),
+  profit: +seller.profit.toFixed(2),
+  sales_count: seller.sales_count,
+  top_products: seller.top_products,
+  bonus: +seller.bonus.toFixed(2)
+}));
 }
