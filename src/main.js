@@ -22,7 +22,18 @@ function calculateSimpleRevenue(purchase, _product) {
  */
 
 function calculateBonusByProfit(index, total, seller) {
-    // @TODO: Расчет бонуса от позиции в рейтинге
+// Расчет бонуса от позиции в рейтинге
+  const { profit } = seller;
+
+  if (index === 0) {
+    return profit * 0.15;
+  } else if (index === 1 || index === 2) {
+    return profit * 0.1;
+  } else if (index === total - 1) {
+    return 0;
+  } else {
+    return profit * 0.05;
+  }
 }
 
 /**
@@ -99,9 +110,23 @@ data.purchase_records.forEach(record => {
 // Сортировка продавцов по прибыли
 sellerStats.sort((sellerA, sellerB) => sellerB.profit - sellerA.profit);
 
-console.log(sellerStats.map(seller => seller.profit));
-console.log(sellerStats[0].name);
+// Назначение премий на основе ранжирования
+sellerStats.forEach((seller, index) => {
+  seller.bonus = calculateBonus(index, sellerStats.length, seller);
 
-  // @TODO: Назначение премий на основе ранжирования
+  const soldProductPairs = Object.entries(seller.products_sold);
+
+  const soldProducts = soldProductPairs.map((pair) => {
+    return {
+      sku: pair[0],
+      quantity: pair[1]
+    };
+  });
+
+  soldProducts.sort((productA, productB) => productB.quantity - productA.quantity);
+
+  seller.top_products = soldProducts.slice(0, 10);
+});
+
   // @TODO: Подготовка итоговой коллекции с нужными полями
 }
