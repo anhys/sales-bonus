@@ -38,7 +38,13 @@ function analyzeSalesData(data, options) {
     throw new Error('Некорректные входные данные');
   }
 
-  // @TODO: Проверка наличия опций
+// Проверка наличия опций
+const { calculateRevenue, calculateBonus } = options || {};
+
+if (typeof calculateRevenue !== 'function' || typeof calculateBonus !== 'function') {
+  throw new Error('Отсутствуют обязательные опции');
+}
+
   // @TODO: Подготовка промежуточных данных для сбора статистики
   // @TODO: Индексация продавцов и товаров для быстрого доступа
   // @TODO: Расчет выручки и прибыли для каждого продавца
