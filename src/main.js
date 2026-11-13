@@ -55,9 +55,24 @@ const sellerStats = data.sellers.map(seller => ({
   products_sold: {}
 }));
 
-  // @TODO: Индексация продавцов и товаров для быстрого доступа
+// Индексация продавцов и товаров для быстрого доступа
+const sellerIndex = {};
+  sellerStats.forEach(seller => {
+    sellerIndex[seller.id] = seller;
+});
+
+const productIndex = {};
+  data.products.forEach(product => {
+    productIndex[product.sku] = product;
+});
+
   // @TODO: Расчет выручки и прибыли для каждого продавца
   // @TODO: Сортировка продавцов по прибыли
   // @TODO: Назначение премий на основе ранжирования
   // @TODO: Подготовка итоговой коллекции с нужными полями
+
+console.log(sellerIndex);
+console.log(productIndex);
+console.log(sellerIndex['seller_1'] === sellerStats[0]);
+console.log(productIndex['SKU_001'].purchase_price);
 }
