@@ -96,7 +96,12 @@ data.purchase_records.forEach(record => {
   });
 });
 
-  // @TODO: Сортировка продавцов по прибыли
+// Сортировка продавцов по прибыли
+sellerStats.sort((sellerA, sellerB) => sellerB.profit - sellerA.profit);
+
+console.log(sellerStats.map(seller => seller.profit));
+console.log(sellerStats[0].name);
+
   // @TODO: Назначение премий на основе ранжирования
   // @TODO: Подготовка итоговой коллекции с нужными полями
 }
